@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>JQuery investigation</h1>
+
+    <table class="ptTable">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Active</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td><button class="btnDelete id="btnDelete1">Delete</button></td>
+            <tr>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td><button class="btnDelete id="btnDelete1">Delete</button></td>
+                
+
+                
+
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+                <td><button class="btnDelete id="btnDelete1">Delete</button></td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>14</td>
+                <td>15</td>
+                <td>16</td>
+                <td><button class="btnDelete id="btnDelete1">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button id="btnTest">Press Me</button>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        //$ instead of jQuery
+        // don't use $ as a variable becuase jQuery uses $ ubiquitously
+        //syntax for selecting is identical to the CSS selector syntax
+        jQuery("h1").html("Changed the title");
+        $("h1").html("Changed!");
+
+        //select the table amd third row and the first td and replace what's in it
+        $(".ptTable tbody tr:nth-child(3) td:first-of-type").html("xzzz");
+
+        //add a row
+        $(".ptTable tbody").append(`<tr><td>YYY</tr></td>`);
+
+        //event handling
+        $("#btnTest").on("click", () => {
+            console.log("you clicked the btton");
+        })
+
+        //if the selector ifnds multiple items matching the CSS 
+        //it will run the function for each item, e.g. each row
+        $(".ptTable tbody tr").on("click", () => {
+            console.log("you clicked a row");
+        });
+
+        $(document).ready(() =>{
+            console.log("document ready to render");
+        });
+
+        //use CSS class selector rather than the ID for the action to
+        //apply to all buttons of class btnDelete
+        $('.btnDelete').on("click", () => {
+            console.log("delete");
+            $('.ptTable tbody tr:nth-child(3)').remove();
+        });
+
+        //ajax calls
+    </script>
+</body>
+</html>
