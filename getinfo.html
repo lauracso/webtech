@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1 id="mainheading">xxxx</h1>
+
+    <select id="selColour" onchange="onChanged()">
+    </select>
+
+    <div id="footer">FOOTER</div>
+    
+    <style></style>
+    
+    <script>
+         var name = "Laura";
+         var title = "Get Information Web Application";
+         var mainHeading = document.getElementById("mainheading");
+         mainHeading.innerHTML = title;
+         
+        //replace h1 contents with var title
+        var element = document.getElementById("mainheading");
+        element.innerHTML = title;
+
+        var select = document.getElementById("selColour");
+
+        var colours = ["red", "green", "blue", "orange", "yellow", "indigo", "violet"];
+        //get colours into the select box
+        for (var colour of colours) {  //loop
+            var option = document.createElement("option");
+            option.text = colour;
+            option.value = colour;
+            select.appendChild(option);
+        }
+
+        function onChanged() {
+            var colour = selColour.value;
+            mainHeading.style.color = colour;
+        }
+
+        //create copyright message
+        var date = new Date();
+        var message = "Copyright &copy;" + date.getFullYear() + " Laura Jane Industries";
+        alert(message);
+
+        document.getElementById("footer").innerHTML = message;
+    </script>
+
+</body>
+</html>
