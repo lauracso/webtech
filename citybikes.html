@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Bikes</title>
+    <link rel="stylesheet" href="userlist.css">
+</head>
+<body>
+    <h1>city bikes</h1>
+
+    <h1 id="title"></h1>
+    <h1 id="subtitle"></h1>
+
+    <table id="tblStations">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Free Bikes</th>
+                <th>Slots</th>
+                <th>Empty Slots</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(() => {
+            console.log("ready");
+
+            //make an ajax call
+            let url="http://api.citybik.es/v2/networks/cork"
+
+            $.getJSON(url, (data) => {
+                console.log(data);
+                console.log(data.network.name);
+                console.log(data.network.company[0]);
+                $('#title').html(data.network.name);
+                $('#subtitle').html(data.network.company[0]);
+
+                data.network.stations.forEach(station => {
+                    console.log(station.name);
+                    $("#tblStations tbody").append(`<tr class="${ station.free_bikes <= 4 ? "lowfreebikes" : "freebikes"}">
+                        <td>${station.name}</td>
+                        <td>${station.latitude}, ${station.longitude}</td>
+                        <td>${station.free_bikes}</td>
+                        <td>${station.empty_slots}</td>
+                        <td>${station.extra.slots}</td>
+                        </tr>`)
+                })
+            });
+        });
+
+        //if there is no bike, and if there is no free slot, highlight those locations
+
+
+    </script>
+</body>
+</html>
