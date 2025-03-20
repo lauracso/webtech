@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .ljetable {
+            width: 80%;
+            margin: 20px 0;
+            font-family:'Courier New', Courier, monospace;
+            font-size: 16px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px (rgba(0,0,0,0.1));
+        }
+        .ljetable thead {
+            background-color: #d3dbdb;
+            color:rgb(85, 55, 19);
+        }
+        .ljetable th, table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #fadbdb;
+        }
+        .ljetable tbody tr:hover{
+            background-color: #f1f1f1;
+        }
+        .ljetable tbody tr:nth-child(even){
+            background-color: cadetblue;
+        }
+        .ljetable tbody td:first-child {
+            font-weight:bold;
+        }
+        #tblUsers {
+            color: rgb(71, 46, 46); 
+        }
+        #tblUsers tbody tr td:nth-child(1) {
+            background-color:rgb(250, 240, 240);
+        }
+        input[type=radio] {
+            accent-color: rgb(49, 46, 46);
+        }
+        input[name=rbActive]:checked {
+            accent-color: rgb(32, 32, 34);
+        }
+    </style>
+</head>
+<body>
+    <h1>user list</h1>
+
+    <label>Active</label><input type="radio" name="rbActive" value="active" onchange="onChanged()">
+    <label>Inactive</label><input type="radio" name="rbActive" value="inactive" onchange="onChanged()">
+    <label>All</label><input type="radio" name="rbActive" value="all" checked onchange="onChanged()">
+
+    <table id="tblUsers" class="ljetable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Active</th>
+            </tr>
+        </thead>
+        <tbody id="tblUsersTBody">
+        </tbody>
+    </table>
+
+    <script>
+         function onChanged(event ) {
+
+            let rb = document.querySelector("input[name=rbActive]:checked ");
+            console.log(rb.value);
+
+            let filtered = people;
+
+            if(rb.value == "active") {
+                filtered = people.filter(user => user.active);    
+            } else if (rb.value == "inactive") {
+                filtered = people.filter(user => !user.active);
+
+            } else {
+                filtered = people;
+            }
+
+            //update table to show filtered
+            updateTable(filtered);
+         }
+
+
+   let people = [{id:1, name:"Alice", email:"alice@gmail.com", active:true},
+                      {id:2, name:"Bob", email:"bob@gmail.com", active:false},
+                      {id:3, name:"Carol", email:"carol@gmail.com", active:false},
+                    {id:4, name:"Dan", email:"dan@gmail.com", active:true},
+                    {id:5, name:"Eve", email:"eve@gmail.com", active:true},
+                      {id:6, name:"Fred", email:"fred@gmail.com", active:false},
+                      {id:7, name:"Harriet", email:"harriet@gmail.com", active:false},
+                    {id:8, name:"Penny", email:"penny@gmail.com", active:true}
+                ];
+
+        
+        function updateTable(peopleList) {
+
+        let tbody=document.getElementById("tblUsersTBody");
+        tbody.innerHTML = "";
+        //tbody.innerHTML=`<tr><td>1</td><td>Alice</td></tr>`;
+        //tbody.innerHTML += `<tr><td>1</td><td>Alice</td></tr>`;
+
+        //empty table before adding rows
+        
+        peopleList.forEach(person => {
+            tbody.innerHTML += `<tr>
+                                    <td>${person.id}</td>
+                                    <td>${person.name}</td>
+                                    <td>${person.email}</td>
+                                    <td>${person.active ? "Active" : "Inactive"}</td>
+                                </tr>`;
+        });
+    }
+
+    updateTable(people);
+
+        //select things in javascript using CSS selectors
+        // input[name=rbActive]:checked  is CSS
+    </script>
+</body>
+</html>
